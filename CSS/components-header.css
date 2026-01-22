@@ -1,0 +1,93 @@
+/* 
+В components-header.css мы определяем свойства для шапки (header):
+- Бургер-кнопка с сайдбаром и сохранениями
+- Аккаунт
+*/
+
+/* # ---- Бургер-кнопка ---- # */
+.btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 50%;
+    width: 70%;
+    cursor: pointer;
+}
+
+.line {
+    width: 67%;
+    height: 4px;
+    background-color: white;
+    border-radius: 4px;
+    margin: 0 auto;
+}
+
+.line.in-box {
+    width: 100%;
+}
+
+/* # ---- Аккаунт ---- # */
+.round {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    height: 80%;
+    border-radius: 50%;
+    background-color: white;
+    overflow: hidden;
+}
+
+/* # ---- Сайдбар ---- # */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    top: 6vh;
+    left: -250px;
+    width: 250px;
+    height: calc(100vh - 6vh);
+    background-color: var(--primary-darker);
+    color: white;
+    padding: 20px;
+    transition: left 0.3s ease;
+    z-index: 2;
+    box-shadow: 0 5px 10px black;
+}
+
+#toggle-sidebar:checked ~ .sidebar {
+    left: 0;
+}
+
+/* # ---- Настройка элементов сайдбара ---- # */
+.sidebar .wrapper {
+    height: auto;
+    aspect-ratio: auto;
+    padding: 5px;
+    background-color: var(--gray);
+}
+
+.sidebar .wrapper:hover {
+    background-color: var(--gray-darker);
+}
+
+.add-new-project {
+    color: white;
+    font-size: 100px;
+}
+
+/* # ---- Навигационная панель ---- # */
+.navbar {
+    display: flex;
+    justify-content: center;
+}
+
+#tag-filter {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}

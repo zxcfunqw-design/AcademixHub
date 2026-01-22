@@ -1,0 +1,156 @@
+/* 
+В main.css мы определяем базовые настройки для страницы, такие как:
+- * (основные свойства)
+- :root (цвета)
+- другие теги
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Lato, 'Segoe UI', 'Lucida Sans Unicode', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+:root {
+    --primary: #67668b;
+    --primary-darker: #474662;
+    --text: #020113;
+    --gray: #b4b2c9;
+    --gray-darker: #85848b;
+    --green: #22D496;
+    --red: #d42222;
+}
+
+header {
+    position: relative;
+    min-height: 40px;
+}
+
+main {
+    height: calc(100vh - 6vh);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul {
+    list-style: none;
+}
+
+/* # ---- Общие свойства ---- # */
+.container {
+    width: 100%;
+    height: 6vh;
+    min-height: 40px;
+    background-color: var(--primary);
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary);
+    padding: 5px;
+    aspect-ratio: 1 / 1;
+    height: 100%;
+    cursor: pointer;
+    gap: 10px;
+}
+
+.wrapper:hover {
+    background-color: var(--primary-darker);
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.row-between {
+    justify-content: space-between;
+}
+
+.hide {
+    display: none;
+}
+
+/* # ---- Стили для новых полей ввода ---- # */
+input[type="date"],
+input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+    margin-top: 5px;
+}
+
+input[type="date"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(103, 102, 139, 0.2);
+}
+
+/* # ---- Стили для информационного сайдбара ---- # */
+#info-similarity {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+#info-similarity.high {
+    background-color: rgba(34, 212, 150, 0.2);
+    color: #117a65;
+}
+
+#info-similarity.medium {
+    background-color: rgba(255, 193, 7, 0.2);
+    color: #856404;
+}
+
+#info-similarity.low {
+    background-color: rgba(108, 117, 125, 0.2);
+    color: #495057;
+}
+
+/* # ---- Адаптивные стили ---- # */
+@media (max-width: 768px) {
+    .card {
+        min-width: 280px;
+        padding: 15px;
+    }
+    
+    .info-sidebar,
+    .recommendations-sidebar {
+        width: 280px;
+    }
+}
+
+/* # ---- Анимации ---- # */
+.vertex {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.line-connection {
+    transition: opacity 0.3s ease;
+}
+
+/* # ---- Улучшенные стили для карточек ---- # */
+.card label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.card input {
+    margin-top: 5px;
+}

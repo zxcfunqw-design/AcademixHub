@@ -1,0 +1,285 @@
+/* 
+Файл: components-main.css
+В этом файле пишутся элементы <main>:
+- сайдбар с информацией
+- ребра
+- вершины
+- и другое..
+*/
+
+/* # ---- Бокс ---- # */
+.box {
+    width: 800px;
+    height: 600px;
+    background-color: #f0f0f0;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.vertex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    background-color: var(--primary);
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: clamp(2px, 2px + 0.5vw, 16px);
+    z-index: 1;
+}
+
+.vertex:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    font-size: clamp(3px, 3px + 0.5vw, 18px);
+}
+
+/* # ---- Подсветка вершины ---- # */
+.vertex.highlighted {
+    animation: vertex-highlight 3s ease-in-out;
+    box-shadow: 0 0 20px 10px rgba(34, 212, 150, 0.7);
+    z-index: 100 !important;
+}
+
+@keyframes vertex-highlight {
+    0% {
+        box-shadow: 0 0 0 0 rgba(34, 212, 150, 0.7);
+        transform: scale(1);
+    }
+    20% {
+        box-shadow: 0 0 20px 10px rgba(34, 212, 150, 0.7);
+        transform: scale(1.1);
+    }
+    80% {
+        box-shadow: 0 0 20px 10px rgba(34, 212, 150, 0.7);
+        transform: scale(1.1);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(34, 212, 150, 0);
+        transform: scale(1);
+    }
+}
+
+/* Альтернативные цвета подсветки для разных типов */
+.vertex.highlighted.tag {
+    animation: vertex-highlight-tag 3s ease-in-out;
+}
+
+@keyframes vertex-highlight-tag {
+    0% {
+        box-shadow: 0 0 0 0 rgba(34, 212, 150, 0.7);
+    }
+    20% {
+        box-shadow: 0 0 20px 10px rgba(34, 212, 150, 0.7);
+    }
+    80% {
+        box-shadow: 0 0 20px 10px rgba(34, 212, 150, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(34, 212, 150, 0);
+    }
+}
+
+.vertex.highlighted.error {
+    animation: vertex-highlight-error 3s ease-in-out;
+}
+
+@keyframes vertex-highlight-error {
+    0% {
+        box-shadow: 0 0 0 0 rgba(212, 34, 34, 0.7);
+    }
+    20% {
+        box-shadow: 0 0 20px 10px rgba(212, 34, 34, 0.7);
+    }
+    80% {
+        box-shadow: 0 0 20px 10px rgba(212, 34, 34, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(212, 34, 34, 0);
+    }
+}
+
+/* Подсветка для рекомендаций */
+.vertex.highlighted.recommendation {
+    animation: vertex-highlight-recommendation 4s ease-in-out;
+}
+
+@keyframes vertex-highlight-recommendation {
+    0% {
+        box-shadow: 0 0 0 0 rgba(103, 102, 139, 0.7);
+        transform: scale(1);
+    }
+    15% {
+        box-shadow: 0 0 25px 12px rgba(103, 102, 139, 0.8);
+        transform: scale(1.15);
+    }
+    85% {
+        box-shadow: 0 0 25px 12px rgba(103, 102, 139, 0.8);
+        transform: scale(1.15);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(103, 102, 139, 0);
+        transform: scale(1);
+    }
+}
+
+.line-connection {
+    position: absolute;
+    height: 2px;
+    transform-origin: 0 0;
+    z-index: 0;
+}
+
+.line-connection.tag {
+    background-color: var(--green);
+}
+
+.line-connection.tag:hover {
+    box-shadow: 0 2px 10px var(--green);
+}
+
+.line-connection.error {
+    background-color: red;
+}
+
+.line-connection.error:hover {
+    box-shadow: 0 2px 10px var(--red);
+}
+
+/* # ---- Карточки ---- № */
+.card-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 300px;
+}
+
+.card label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.card input {
+    width: 100%;
+    margin-top: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.btn.in-box {
+    background-color: white;
+    border: 1px solid rgb(141, 141, 141);
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.btn.in-box:hover {
+    background-color: #ccc;
+}
+
+.create {
+    background-color: var(--green);
+}
+
+.close {
+    background-color: red;
+}
+
+.wrapper.in-box {
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    max-height: 70px;
+    width: 100%;
+}
+
+/* # ---- Сайдбар с инфо о вершине ---- # */
+.info-sidebar {
+    position: fixed;
+    top: 6vh;
+    right: -300px;
+    width: 300px;
+    height: calc(100vh - 6vh);
+    background-color: #ffffff;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+    padding: 20px;
+    transition: right 0.3s ease;
+    z-index: 5;
+}
+
+.info-sidebar.open {
+    right: 0;
+}
+
+.info-sidebar h3 {
+    margin-top: 0;
+}
+
+.info-sidebar button {
+    margin-top: 20px;
+}
+
+.info-sidebar > .line.in-box {
+    background-color: var(--primary);
+    margin-top: 20px;
+}
+
+/* # ---- Окно редактирования ---- # */
+.overlay {
+    display: none;             /* по умолчанию скрыт */
+    position: fixed;           /* поверх всего */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5); /* затемнённый фон */
+    justify-content: center;   /* центрируем по горизонтали */
+    align-items: center;       /* центрируем по вертикали */
+    z-index: 1000;             /* чтобы было поверх всех элементов */
+}
+
+.overlay .card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* # ---- Окно закрытия ---- # */
+
+#auth-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.close-overlay {
+    max-width: 30px;
+}
+
+.arrow {
+    position: relative;
+    max-width: 50px;
+    left: 80%;
+}

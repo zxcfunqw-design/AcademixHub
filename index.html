@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNA Engine - Рекомендации мероприятий</title>
+    <link rel="stylesheet" href="CSS/main.css">
+    <link rel="stylesheet" href="CSS/components-header.css">
+    <link rel="stylesheet" href="CSS/components-main.css">
+    <link rel="stylesheet" href="CSS/components-recommendations.css">
+</head>
+<body>
+    <header>
+        <input type="checkbox" id="toggle-sidebar" hidden>
+        <div class="container row row-between">
+            <div class="wrapper">
+                <label for="toggle-sidebar" class="btn">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </label>
+            </div>
+
+            <div class="wrapper">
+                <div class="round" id="open-auth">lorem</div>
+            </div>
+        </div>
+
+        <aside class="sidebar">
+            <div class="wrapper">
+                <div class="add-new-project" id="open-card">
+                    +
+                </div>
+            </div>
+
+            <div class="line in-box"></div>
+
+            <div class="wrapper">
+                <nav class="navbar">
+                    <ul>
+                        <li>
+                            <input type="text" id="tag-filter" placeholder="Фильтр по тегу (#решение)">
+                        </li>
+                        <li>
+                            <input type="number" id="budget-filter" placeholder="Макс. бюджет" min="0">
+                        </li>
+                        <li>
+                            <input type="date" id="date-filter" placeholder="Дата">
+                        </li>
+                        <li>
+                            <input type="number" id="participants-filter" placeholder="Участников от" min="1">
+                        </li>
+                        <li>
+                            <button class="btn in-box" id="show-recommendations">Показать рекомендации</button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+    </header>
+
+    <main>
+        <div class="box" id="graph-box"></div>
+        
+        <!-- # ---- Сайдбар с информацией о событии ---- # -->
+        <div id="info-sidebar" class="info-sidebar">
+            <h3 id="info-title">Название</h3>
+            <p><strong>Ключевые решения:</strong> <span id="info-tags"></span></p>
+            <p><strong>Ошибки:</strong> <span id="info-errors"></span></p>
+            <p><strong>Контакты:</strong> <span id="info-contacts"></span></p>
+            
+            <div class="line in-box"></div>
+            <p><strong>Бюджет:</strong> <span id="info-budget"></span> KZT</p>
+            <p><strong>Дата:</strong> <span id="info-date"></span></p>
+            <p><strong>Участники:</strong> <span id="info-participants"></span> чел.</p>
+            <p><strong>Схожесть с текущим:</strong> <span id="info-similarity"></span></p>
+            
+            <div class="line in-box"></div>
+            <div class="wrapper in-box">
+                <button class="btn in-box close" id="edit-vertex">Редактировать</button>
+                <button class="btn in-box close" id="delete-vertex">Удалить</button>
+            </div>
+
+            <div class="wrapper in-box">
+                <button class="btn in-box close" id="close-info">Закрыть</button>
+            </div>
+        </div>
+
+        <!-- # ---- Сайдбар с рекомендациями ---- # -->
+        <div id="recommendations-sidebar" class="recommendations-sidebar">
+            <h3>Рекомендации мероприятий</h3>
+            <div id="recommendations-list"></div>
+            <div class="wrapper in-box">
+                <button class="btn in-box close" id="close-recommendations">Закрыть</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- # ---- Оверлей для добавления вершин ---- # -->
+    <div class="card-overlay" id="card-overlay">
+        <div class="card">
+            <h2>Добавить Ивент:</h2>
+            <label>Название:
+                <input type="text" id="vertex-title">
+            </label>
+
+            <label>Ключевые решения (# через запятую):
+                <input type="text" id="vertex-tags">
+            </label>
+
+            <label>Ошибки (# через запятую):
+                <input type="text" id="vertex-errors">
+            </label>
+
+            <label>Контакты:
+                <input type="text" id="vertex-contacts">
+            </label>
+
+            <!-- # ---- Новые поля метаданных ---- # -->
+            <label>Бюджет (KZT):
+                <input type="number" id="vertex-budget" min="0" value="0">
+            </label>
+
+            <label>Дата мероприятия:
+                <input type="date" id="vertex-date">
+            </label>
+
+            <label>Количество участников:
+                <input type="number" id="vertex-participants" min="1" value="1">
+            </label>
+
+            <div class="wrapper in-box">
+                <button class="btn in-box create" id="create-vertex">Создать</button>
+                <button class="btn in-box close" id="close-card">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- # ---- Оверлей для редактирования вершин ---- # -->
+    <div id="edit-overlay" class="overlay">
+        <div class="card">
+            <h3 id="edit-card-title">Редактировать вершину</h3>
+            <input type="text" id="edit-vertex-title" placeholder="Название">
+            <input type="text" id="edit-vertex-tags" placeholder="Ключевые решения (через запятую)">
+            <input type="text" id="edit-vertex-errors" placeholder="Ошибки (через запятую)">
+            <input type="text" id="edit-vertex-contacts" placeholder="Контакты">
+            
+            <input type="number" id="edit-vertex-budget" placeholder="Бюджет (KZT)" min="0">
+            <input type="date" id="edit-vertex-date" placeholder="Дата мероприятия">
+            <input type="number" id="edit-vertex-participants" placeholder="Участники" min="1">
+            
+            <div class="wrapper in-box">
+                <button class="btn in-box save" id="save-vertex">Сохранить</button>
+                <button class="btn in-box close" id="close-edit">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- # ---- Регистрация и Логин ---- # -->
+    <div id="auth-overlay" class="overlay">
+        <div class="card">
+            <!-- # -- Заголовок -- # -->
+            <h3 id="auth-title">
+                <span>Войти</span> 
+                <!-- # -- Кнопка закрытия оверлея -- # -->
+                <button id="close-auth" class="close-overlay btn in-box">X</button>
+            </h3>
+
+            <!-- # -- Логин -- #-->
+            <div id="login-form">
+                <input type="text" id="login-username" placeholder="Имя пользователя">
+                <input type="password" id="login-password" placeholder="Пароль">
+                <div class="wrapper in-box">
+                    <button id="login-btn" class="btn in-box">Войти</button>
+                </div>
+            </div>
+
+            <!-- # -- Регистрация -- # -->
+            <div id="register-form" >
+                <input type="text" id="reg-username" placeholder="Имя пользователя">
+                <input type="password" id="reg-password" placeholder="Пароль">
+                <input type="password" id="reg-password-confirm" placeholder="Подтвердить пароль">
+                <div class="wrapper in-box">
+                    <button id="register-btn" class="btn in-box">Регистрация</button>
+                </div>
+            </div>
+
+            <button id="toggle-auth" class="btn in-box arrow">→</button>
+        </div>
+    </div>
+
+    <!-- # ---- Подключение JavaScript ---- # -->
+    <script src="JS/utils.js"></script>
+    <script src="JS/Event.js"></script>
+    <script src="JS/SimilarityCalculator.js"></script>
+    <script src="JS/GraphManager.js"></script>
+    <script src="JS/main.js"></script>
+</body>
+</html>
