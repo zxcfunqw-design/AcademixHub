@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>School Platform</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        header {
+            background: #1f2937;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        header button {
+            background: #374151;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        header button:hover {
+            background: #4b5563;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 80px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .container h1 {
+            margin-bottom: 10px;
+        }
+
+        .container p {
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .container button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .secondary {
+            background: #e5e7eb;
+        }
+
+        .profile {
+            text-align: left;
+        }
+
+        .profile div {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Верхнее меню -->
+<header>
+    <a href = "Shanyraks.html">
+        <button>Рейтинг Шаныраков</button>
+    </a>
+    <!-- Кнопка только для сотрудника СК -->
+    <a href = "ScSite.html"><button id="scButton" style="display:none;">
+        Панель Student Council
+    </button></a>
+
+    <!-- Кнопка только для лидера шанырака -->
+    <a href = "shanyraqsite.html"><button id="shanyraqButton" style="display:none;">
+        Управление шаныраком
+    </button></a>
+</header>
+
+<!-- Главная страница -->
+<div class="container" id="home">
+    <h1>Добро пожаловать</h1>
+    <p></p>
+    <input id="loginIin" placeholder="Введите ИИН"style="width:100%;padding:10px;margin-bottom:15px;"onkeydown="handleLoginEnter(event)">
+    <button class="primary" onclick="login()">Вход</button>
+    <button class="secondary" onclick="openRegister()">Регистрация</button>
+</div>
+
+<!-- регистрация -->
+<div class="container" id="register" style="display:none;">
+    <h1>Регистрация</h1>
+
+    <input id="regIin" placeholder="ИИН" style="width:100%;padding:10px;margin-bottom:10px;">
+    <input id="regName" placeholder="Имя" style="width:100%;padding:10px;margin-bottom:10px;">
+    <input id="regSurname" placeholder="Фамилия" style="width:100%;padding:10px;margin-bottom:10px;">
+    <input id="regGrade" placeholder="Класс" style="width:100%;padding:10px;margin-bottom:10px;">
+
+    <select id="regRole" style="width:100%;padding:10px;margin-bottom:20px;">
+        <option value="Ученик">Ученик</option>
+        <option value="Сотрудник СК">Сотрудник СК</option>
+        <option value="Лидер шанырака">Лидер шанырака</option>
+    </select>
+
+    <button class="primary" onclick="register()">Зарегистрироваться</button>
+    <button class="secondary" onclick="goHome()">Назад</button>
+</div>
+
+
+<!-- Профиль -->
+<div class="container" id="profile" style="display:none;">
+    <h1>Профиль</h1>
+
+    <div class="profile">
+        <div><strong>ИИН:</strong> <span id="iin"></span></div>
+        <div><strong>Имя:</strong> <span id="name"></span></div>
+        <div><strong>Фамилия:</strong> <span id="surname"></span></div>
+        <div><strong>Класс:</strong> <span id="grade"></span></div>
+        <div><strong>Роль:</strong> <span id="role"></span></div>
+    </div>
+
+    <button class="primary">Личные достижения</button>
+    <button class="secondary" onclick="goBack()">Назад</button>
+</div>
+
+<script>
+    // "База данных" пользователей
+    const users = [
+        {
+            iin: "030512345678",
+            name: "Айдана",
+            surname: "Серикова",
+            grade: "10A",
+            role: "Ученик"
+        },
+        {
+            iin: "990102987654",
+            name: "Алихан",
+            surname: "Нурбаев",
+            grade: "11B",
+            role: "Сотрудник СК"
+        },
+        {
+            iin: "040812111222",
+            name: "Диас",
+            surname: "Канатов",
+            grade: "9C",
+            role: "Лидер шанырака"
+        }
+    ];
+
+    function login() {
+
+    const iin = document.getElementById("loginIin").value;
+
+    if (!iin) {
+        alert("Введите ИИН");
+        return;
+    }
+
+    const user = users.find(u => u.iin === iin);
+
+    if (!user) {
+        alert("Пользователь не найден");
+        return;
+    }
+
+    openProfile(user);
+    }
+
+    
+    function goBack() {
+        document.getElementById("profile").style.display = "none";
+        document.getElementById("home").style.display = "block";
+    }
+    
+    function openRegister() {
+        document.getElementById("home").style.display = "none";
+        document.getElementById("register").style.display = "block";
+    }
+
+    function goHome() {
+        document.getElementById("register").style.display = "none";
+        document.getElementById("profile").style.display = "none";
+        document.getElementById("home").style.display = "block";
+    }
+
+    function register() {
+        const iin = document.getElementById("regIin").value;
+        const name = document.getElementById("regName").value;
+        const surname = document.getElementById("regSurname").value;
+        const grade = document.getElementById("regGrade").value;
+        const role = document.getElementById("regRole").value;
+
+        if (!iin || !name || !surname || !grade) {
+            alert("Заполните все поля");
+            return;
+        }
+
+        const exists = users.find(u => u.iin === iin);
+        if (exists) {
+            alert("Пользователь с таким ИИН уже существует");
+            return;
+        }
+
+        const newUser = {
+            iin,
+            name,
+            surname,
+            grade,
+            role
+        };
+
+        users.push(newUser);
+
+        // автоматический вход
+        document.getElementById("iin").textContent = newUser.iin;
+        document.getElementById("name").textContent = newUser.name;
+        document.getElementById("surname").textContent = newUser.surname;
+        document.getElementById("grade").textContent = newUser.grade;
+        document.getElementById("role").textContent = newUser.role;
+
+        openProfile(newUser);
+    }
+    function openProfile(user) {
+    document.getElementById("iin").textContent = user.iin;
+    document.getElementById("name").textContent = user.name;
+    document.getElementById("surname").textContent = user.surname;
+    document.getElementById("grade").textContent = user.grade;
+    document.getElementById("role").textContent = user.role;
+
+    document.getElementById("home").style.display = "none";
+    document.getElementById("register").style.display = "none";
+    document.getElementById("profile").style.display = "block";
+
+    applyRoleAccess(user.role);
+    }
+    function handleLoginEnter(event) {
+        if (event.key === "Enter") {
+            login();
+        }
+    }
+    function applyRoleAccess(role) {
+    // скрываем всё
+    document.getElementById("scButton").style.display = "none";
+    document.getElementById("shanyraqButton").style.display = "none";
+
+    // показываем по роли
+    if (role === "Сотрудник СК") {
+        document.getElementById("scButton").style.display = "block";
+    }
+
+    if (role === "Лидер шанырака") {
+        document.getElementById("shanyraqButton").style.display = "block";
+    }
+}
+
+</script>
+
+</body>
+</html>
